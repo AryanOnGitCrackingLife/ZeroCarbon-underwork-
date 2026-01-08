@@ -1,0 +1,142 @@
+{% comment %}
+Old basic login removed
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | ZeroCarbon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --primary: #0B3D2E;
+            --secondary: #1F6F8B;
+            --accent: #2ECC71;
+            --bg-light: #F4F7F9;
+            --text-dark: #1F2933;
+            --error: #E74C3C;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            padding: 34px 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .login-card input {
+            width: 92%;
+            padding: 13px 14px;
+            margin-bottom: 16px;
+            border-radius: 10px;
+            border: 1.5px solid #dcdcdc;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .login-card input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 13px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .login-card button:hover {
+            background: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            margin-top: 14px;
+            text-align: center;
+            color: var(--error);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .footer-text {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <h2>Welcome Back 🌱</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <input name="username" placeholder="Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="signup-link">
+            Don’t have an account? <a href="/signup/">Create one</a>
+        </div>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="footer-text">
+            ZeroCarbon • Track • Reduce • Sustain
+        </div>
+    </div>
+</body>
+</html>

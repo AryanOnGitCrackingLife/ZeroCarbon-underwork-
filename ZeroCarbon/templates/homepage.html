@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zero Carbon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --primary: #0B3D2E;
+            --secondary: #1F6F8B;
+            --accent: #2ECC71;
+            --bg-light: #F4F7F9;
+            --text-dark: #1F2933;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            background: var(--primary);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-actions a {
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+        }
+
+        .nav-actions .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* ===== HERO (FULL WIDTH) ===== */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+        }
+
+        .hero-inner {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.9;
+            max-width: 520px;
+            margin-bottom: 36px;
+        }
+
+        .hero-buttons a {
+            display: inline-block;
+            margin-right: 16px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #27ae60;
+        }
+
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* ===== HERO IMAGE ===== */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 38px;
+            }
+
+            .hero-buttons {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero-buttons a {
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="brand">🌱 Zero Carbon</div>
+    <div class="nav-actions">
+        <a href="/login/">Login</a>
+        <a href="/signup/" class="btn">Get Started</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+
+        <!-- TEXT -->
+        <div class="hero-text">
+            <h1>
+                Track. Reduce.<br>
+                Live Zero Carbon.
+            </h1>
+
+            <p>
+                Track food, travel, electricity, and waste emissions.
+                Make data-driven decisions for a sustainable future.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="/login/" class="btn-primary">Get Started</a>
+                <a href="#learn" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+
+        <!-- VISUAL -->
+        <div class="hero-visual">
+            <img src="{% static 'images/hero.jpg' %}" alt="Sustainability Illustration">
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

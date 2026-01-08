@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Carbon Emission Summary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --primary: #0B3D2E;
+    --secondary: #1F6F8B;
+    --accent: #2ECC71;
+    --bg-light: #F4F7F9;
+    --text-dark: #1F2933;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+}
+
+.summary-wrapper {
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* ===== HEADER ===== */
+.summary-header {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.25);
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.summary-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.overall-value {
+    margin-top: 14px;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.overall-sub {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ===== GRID ===== */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+/* ===== CATEGORY CARD ===== */
+.category-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.category-title h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.category-total {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.category-list li {
+    background: var(--bg-light);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.empty {
+    font-style: italic;
+    color: #777;
+}
+
+/* ===== FOOTER ===== */
+.back-link {
+    text-align: center;
+    margin-top: 34px;
+}
+
+.back-link a {
+    text-decoration: none;
+    font-weight: 700;
+    color: white;
+    font-size: 15px;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="summary-wrapper">
+
+    <!-- HEADER -->
+    <div class="summary-header">
+        <h1>📊 Carbon Emission Overview</h1>
+        <div class="overall-value">{{ overall_total }} kg CO₂</div>
+        <div class="overall-sub">Your total recorded carbon footprint</div>
+    </div>
+
+    <!-- GRID -->
+    <div class="summary-grid">
+
+        <!-- FOOD -->
+        <div class="category-card">
+            <div class="category-title">
+                <h3>🍽 Food</h3>
+                <div class="category-total">{{ food_total }} kg</div>
+            </div>
+            <ul class="category-list">
+                {% for item in food_data %}
+                <li>
+                    {{ item.food_type }} · {{ item.quantity_kg }} kg  
+                    <br><strong>{{ item.carbon_kg }} kg CO₂</strong> · {{ item.date }}
+                </li>
+                {% empty %}
+                <li class="empty">No food records</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- ELECTRICITY -->
+        <div class="category-card">
+            <div class="category-title">
+                <h3>⚡ Electricity</h3>
+                <div class="category-total">{{ electricity_total }} kg</div>
+            </div>
+            <ul class="category-list">
+                {% for item in electricity_data %}
+                <li>
+                    {{ item.units_kwh }} kWh  
+                    <br><strong>{{ item.carbon_kg }} kg CO₂</strong> · {{ item.date }}
+                </li>
+                {% empty %}
+                <li class="empty">No electricity records</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- TRAVEL -->
+        <div class="category-card">
+            <div class="category-title">
+                <h3>🚗 Travel</h3>
+                <div class="category-total">{{ travel_total }} kg</div>
+            </div>
+            <ul class="category-list">
+                {% for item in travel_data %}
+                <li>
+                    {{ item.mode }} · {{ item.distance_km }} km  
+                    <br><strong>{{ item.carbon_kg }} kg CO₂</strong> · {{ item.date }}
+                </li>
+                {% empty %}
+                <li class="empty">No travel records</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- WASTE -->
+        <div class="category-card">
+            <div class="category-title">
+                <h3>♻ Waste</h3>
+                <div class="category-total">{{ waste_total }} kg</div>
+            </div>
+            <ul class="category-list">
+                {% for item in waste_data %}
+                <li>
+                    {{ item.waste_type }} · {{ item.quantity_kg }} kg  
+                    <br><strong>{{ item.carbon_kg }} kg CO₂</strong> · {{ item.date }}
+                </li>
+                {% empty %}
+                <li class="empty">No waste records</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- BACK -->
+    <div class="back-link">
+        <a href="/dashboard/">← Back to Dashboard</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Carbon Advisor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    font-family:'Segoe UI',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.chat-container{
+    background:#fff;
+    width:420px;
+    border-radius:16px;
+    box-shadow:0 20px 40px rgba(0,0,0,.3);
+    padding:20px;
+}
+
+.chat-container h2{
+    text-align:center;
+    color:#2c5364;
+}
+
+.messages{
+    height:300px;
+    overflow-y:auto;
+    margin:16px 0;
+    font-size:14px;
+}
+
+.msg{
+    margin-bottom:12px;
+}
+
+.user{ font-weight:600; color:#203a43; }
+.bot{ color:#444; }
+
+input{
+    width:95%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    margin-top:8px;
+    padding:10px;
+    background:#2c5364;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+<div class="chat-container">
+<h2>🤖 Carbon Advisor</h2>
+
+<div id="messages" class="messages"></div>
+
+<input id="input" placeholder="Ask about your carbon habits...">
+<button onclick="send()">Send</button>
+</div>
+
+<script>
+function send(){
+    const input=document.getElementById("input");
+    const messages=document.getElementById("messages");
+
+    if(!input.value.trim()) return;
+
+    messages.innerHTML+=`<div class="msg user">You: ${input.value}</div>`;
+
+    fetch("/dashboard/carbon-advisor/chat/",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ message: input.value })
+    })
+    .then(r=>r.json())
+    .then(d=>{
+        messages.innerHTML+=`<div class="msg bot">Advisor: ${d.reply}</div>`;
+        messages.scrollTop=messages.scrollHeight;
+    });
+
+    input.value="";
+}
+</script>
+</body>
+</html>
